@@ -32,10 +32,19 @@ values."
    dotspacemacs-configuration-layers
    '(
      lsp
+     tide
      ;;============ Languages ==============
      (javascript :variables
-                 javascript-backend 'lsp
+                 javascript-backend 'tide
+                 ;;javascript-lsp-linter nil
+                 javascript-import-tool 'import-js
+                 js2-basic-offset 2
+                 js2-indent-level 2
+                 javascript-fmt-on-save t
                  )
+
+     (typescript :variables
+                 typescript-backend 'tide)
      python
      html
      rust
@@ -47,14 +56,16 @@ values."
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     
+
      ;;============ Languages Config ==============
      web-beautify
 
      ivy
-     helm
+     ;;helm
      auto-completion
-     better-defaults
+     (better-defaults :variables
+                      better-defaults-move-to-beginning-of-code-first t ;;默认C-e到代码结尾不是行尾
+                      )
      emacs-lisp
      ;; git
      markdown
@@ -72,8 +83,9 @@ values."
      (chinese :variables
               chinese-enable-youdao-dict t
               )
-     
+
      )
+   dotspacemacs-mode-line-theme 'doom
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
@@ -82,27 +94,68 @@ values."
                                       grip-mode
                                       org-pomodoro
                                       yasnippet
-                                      highlight-indent-guides
-                                      nord-theme
-                                      ;;kaolin-theme
-                                      ;;mermaid-mode
+
+                                      company-lsp
+
+                                      ;; === theme ===
+                                      doom-themes
+
+                                      ;; === text color ===
+                                      color-identifiers-mode
 
 
-                                      ;;
+
+
                                       )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
    dotspacemacs-excluded-packages '(
                                     vi-tilde-fringe  ;;与vim相似的下~线
+
+                                    ;; === Assembly mode ===
+                                    asm
+                                    c-c++
+
+                                    ruby-mode
                                     coffee-mode
                                     flyspell-mode
+                                    js2-mode
+                                    sass-mode
+                                    scss-mode
+                                    typescript-mode
+                                    auto-compression-mode
+                                    evil-escape
+
+                                    anzu
+                                    agda
+
+                                    games
 
                                     ;; chinese
                                     ace-pinyin
-                                    pangu-spacing
+                                    chinese-conv
                                     chinese-wbim
+                                    fcitx
+
+                                    pangu-spacing
                                     pyim
+
+                                    highlight-indentation
+
+                                    ;; === theme ===
+                                    spacemacs-theme
+                                    whiteboard
+                                    tango
+                                    tango-dark
+                                    nord-theme
+
+                                    eyebrowse
+                                    fancy-battery
+
+                                    ;; mode-line
+                                    spaceline
+
                                     )
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
@@ -172,17 +225,20 @@ values."
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
+                         doom-nord
+                         doom-nord-light
                          nord
                          berrys
                          monokai
                          spacemacs-dark
-                         spacemacs-light)
+                         spacemacs-light
+                         )
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '("Source Code Variable"
-                               :size 24
+                               :size 20
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -354,6 +410,8 @@ executes.
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
   (add-to-list 'exec-path "e:\\nodist\\bin" t)
+  ;; 在进入Sctatch 中直接为 lisp-interaction-mode
+  (setq dotspacemacs-scratch-mode 'lisp-interaction-mode)
   )
 
 (defun dotspacemacs/user-config ()

@@ -64,11 +64,14 @@
 
 
 
-;; ====================
+;; ==================== out of Mepla
 
 (add-to-list 'load-path "e:\\spacemacs\\emacs26-3\\.emacs.d\\site-lisp\\")
 (add-to-list 'load-path "e:\\spacemacs\\emacs26-3\\.emacs.d\\site-lisp\\js-doc")
+;;(add-to-list 'load-path "e:\\spacemacs\\emacs26-3\\.emacs.d\\site-lisp\\snails")
+
 (add-to-list 'load-path "e:\\spacemacs\\emacs26-3\\.emacs.d\\WingDust\\init-lisp\\")
+
 
 ;; js-doc
 (require 'js-doc)
@@ -80,6 +83,8 @@
           )
 
 (require 'init-keybinding)
+
+;;(require 'snails)
 
 (require 'auto-save)
 (auto-save-enable)
