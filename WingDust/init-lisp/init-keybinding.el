@@ -3,12 +3,17 @@
 (global-set-key (kbd "C-w") 'backward-kill-word)
 
 ;; 取消 Company 实现补全时也能删除前一个单词
-(define-key company-active-map (kbd "\C-w") 'nil)
-
+;;(define-key company-active-map (kbd "\C-w") 'nil)
+;;(define-key company-mode-map "\C-w" nil)
 ;; 默认 C-h backspace
 ;; (global-set-key (kbd "C-h") 'delete-backward-char)
-(define-key input-decode-map (kbd "C-h") (kbd "DEL"))
 
+(with-eval-after-load 'company
+  (define-key company-active-map (kbd "\C-w") 'nil)
+  (define-key company-active-map (kbd "TAB") #'yas-expand)
+  )
+
+(define-key input-decode-map (kbd "C-h") (kbd "DEL"))
 
 
 ;;(define-key company-active-map (kbd "C-h") 'delete-backward-char)

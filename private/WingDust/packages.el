@@ -31,6 +31,11 @@
 
 (defconst WingDust-packages
   '(company
+    ;; === auto-save ===
+    ;;super-save
+
+    ;;highlight-indent-guides
+    youdao-dictionary
     )
   "The list of Lisp packages required by the WingDust layer.
 Each entry is either:
@@ -58,13 +63,36 @@ Each entry is either:
       - A list beginning with the symbol `recipe' is a melpa
         recipe.  See: https://github.com/milkypostman/melpa#recipe-format"
   )
+;; Notes：init 的安装会检索 init-「」后面的单词，它要与包名的对应相等，才会安装对的包
 
-  (defun WingDust/post-init-company()
-    (setq company-minimum-prefix-length 1)
-    )
+(defun WingDust/post-init-company()
+  (setq company-minimum-prefix-length 1)
+  )
 
-;;(defun WingDust/init-youdao-dictionary()
-;;  (spacemacs/set-leader-keys "oy" 'youdao-dictionary-search-at-point+)
+;;(defun WingDust/init-super-save()
+;;  (super-save-mode +1)
+;;  (setq super-save-auto-save-when-idle t)
 ;;  )
+
+;; 吃cpu
+;;(defun WingDust/init-highlight-indent-guides()
+;;  ;; highlight-indent
+;;  (setq highlight-indent-guides-method 'character)
+;;  (add-hook 'org-mode-hook 'highlight-indent-guides-mode)
+;;  (add-hook 'markdown-mode-hook 'highlight-indent-guides-mode)
+;;  (add-hook 'js2-mode-hook 'highlight-indent-guides-mode)
+;;  (add-hook 'js-mode-hook 'highlight-indent-guides-mode)
+;;  (add-hook 'vue-mode-hook 'highlight-indent-guides-mode)
+;;  (add-hook 'python-mode-hook 'highlight-indent-guides-mode)
+;;  (add-hook 'go-mode-hook 'highlight-indent-guides-mode)
+;;  (add-hook 'rust-mode-hook 'highlight-indent-guides-mode)
+;;  (add-hook 'emacs-lisp-mode-hook 'highlight-indent-guides-mode)
+;;  (add-hook 'lisp-mode-hook 'highlight-indent-guides-mode)
+;;  (add-hook 'lisp-interaction-mode-hook 'highlight-indent-guides-mode)
+;;  )
+
+(defun WingDust/post-init-youdao-dictionary()
+  (spacemacs/set-leader-keys "oy" 'youdao-dictionary-search-at-point+)
+  )
 
 ;;; packages.el ends here
