@@ -36,6 +36,7 @@
 
     ;;highlight-indent-guides
     youdao-dictionary
+    origami
     )
   "The list of Lisp packages required by the WingDust layer.
 Each entry is either:
@@ -73,6 +74,10 @@ Each entry is either:
 ;;  (super-save-mode +1)
 ;;  (setq super-save-auto-save-when-idle t)
 ;;  )
+
+(defun WingDust/post-init-origami()
+    (add-hook 'markdown-mode-hook 'origami-mode)
+  )
 
 ;; 吃cpu
 ;;(defun WingDust/init-highlight-indent-guides()

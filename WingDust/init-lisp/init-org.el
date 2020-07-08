@@ -3,7 +3,18 @@
 
 ;; set status  for TODO
 (setq org-todo-keywords
-      '((sequence "TODO" "IDEA" "Destory" "INBOX" "NEXT" "LATER" "WAIT/FORWARD" "MAYBE/FUTURE" "|" "CANCEL" "DONE")))
+      '((sequence
+         "TODO(t)"
+         "IDEA"
+         "Destory"
+         "INBOX(i)"
+         "NEXT(n)"
+         "LATER(l)"
+         "WAIT/FORWARD(w)"
+         "MAYBE/FUTURE(m)"
+         "|"
+         "CANCEL(c)"
+         "DONE(d)" )))
 
 ;; set color for keywords
 (setq org-todo-keyword-faces
@@ -41,11 +52,17 @@
 (setq org-src-fontify-natively t)
 
 ;;
-(setq org-agenda-files '("g:\\工作\\framework"))
+;;(setq org-agenda-files '("g:\\工作\\framework"))
 (global-set-key (kbd "C-c a") 'org-agenda)
 
+;; 打开 org-indent mode
+;;(setq org-startup-indented t)
 
+;; 设置 bullet list [[https://www.lijigang.com/blog/2018/08/08/%E7%A5%9E%E5%99%A8-org-mode/][美化: Headline]]
+(setq org-bullets-bullet-list '("☰" "☷" "☯" "☭"))
 
+;; 快速选择TODO状态
+(setq org-use-fast-todo-selection t)
 
 
 (setq python-shell-interpreter "e:\\python\\python3.8.1\\python.exe"
@@ -61,6 +78,70 @@
      ;;(sh . t)
      ))
   )
+
+
+
+;; 为 org 设置全局 id link
+(require 'org-id)
+(setq org-id-link-to-org-use-id t)
+(global-set-key "\C-c l" 'org-store-link)
+
+
+(setq org-highest-priority ?A)
+(setq org-lowest-priority ?D)
+(setq org-default-priority ?A)
+(setq org-priority-faces
+      '(
+        (?A . org-warning)
+        (?B . (:background "DodgerBlue" :foreground "black"))
+        (?C . (:foreground "SkyBlue" :weight bold))
+        (?D . (:foreground "DodgerBlue" :weight bold))
+        )
+      )
+
+
+;; =================== Setting for gtd Captures
+
+;; Directory for capture files
+(setq org-directory "h:/工作/framework/GTD/")
+
+;; Default capture files
+(setq org-default-notes-file (concat org-directory "GTD/inbox.org"))
+
+;; capture template
+(setq org-capture-templates
+			'(
+        ("t" "Task" entry (file+headline "GTD/inbox.org" "Tasks") "* INBOX %?\nTime:%T\nFrom:%F\n")
+        ("p" "Projects" entry (file+headline "GTD/inbox.org" "Projects") "* %?\nTime:%U\nFrom:%F\n")
+        ("i" "Item notes" item (file+headline "GTD/inbox.org" "Items" "+ %?\n  Time:%U\n  From:%F\n"))
+        ("m" "Misc notes" plain (file+headline "misc.org" "Notes") "-----------------------------------------------------\nTime:%U\n %?")
+        )
+      )
+
+;; set tags
+;; where 		? (h/o/w)
+;; what 		? (c/l/s)
+;; when 		? (gtd | immeiately wait action )
+;; who 			? (my gtd others)
+;; why/how 	? (delete/archive/schedule)
+(setq org-tag-alist '(
+                      (:startup . nil)
+                      ("home" . ?r) ("office" . ?o) ("way" . ?w)
+                      (:endgroup . nil)
+                      ("职业" . ?c)
+                      ("生活" . ?l)
+                      ("学习" . ?s)
+                      ))
+
+
+(setq org-archive-location "h:/工作/framework/GTD/_archive/Things.org::")
+
+
+
+
+
+
+
 
 
 ;;    -----------------------org collapse

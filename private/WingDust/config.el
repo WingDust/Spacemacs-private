@@ -1,6 +1,6 @@
 
 ;;打开行号
-(global-linum-mode t)
+;;(global-linum-mode t)
 ;;(add-hook 'org-mode-hook #'linum-mode)
 
 ;;
@@ -41,7 +41,7 @@
 
 
 ;; 设置文本颜色识别
-;;(add-hook 'after-init-hook 'global-color-identifiers-mode)
+(add-hook 'js-mode-hook 'color-identifiers-mode)
 
 
 ;;
@@ -62,6 +62,9 @@
 
 (setq inhibit-compacting-font-caches t)
 
+;;(custom-theme-set-faces 'doom-nord
+;;                        `(markdown-code-face :background,(doom-color 'base2))
+;;                        )
 
 
 ;; ==================== out of Mepla
@@ -89,5 +92,11 @@
 (require 'auto-save)
 (auto-save-enable)
 ;;(setq auto-save-slient t)       ;; 自动保存的时候静悄悄的， 不要打扰我
+
+(setq org-agenda-files (list
+                        "h:/工作/framework/1.org"
+                        "h:/工作/framework/Daily.org"
+                        ))
+
 
 (require 'init-org)
