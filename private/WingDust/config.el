@@ -41,7 +41,7 @@
 
 
 ;; 设置文本颜色识别
-(add-hook 'js-mode-hook 'color-identifiers-mode)
+;;(add-hook 'js-mode-hook 'color-identifiers-mode)
 
 
 ;;
@@ -67,13 +67,57 @@
 ;;                        )
 
 
+
+;;(add-hook 'racer-mode-hook #'company-mode)
+;;(require 'rust-mode)
+;;(define-key rust-mode-map (kbd "TAB") #'company-indent-or-complete-common)
+;;(setq company-tooltip-align-annotations t)
+
+
+
+;;(dolist (hook (list
+;;               'js-mode-hook
+;;               'rust-mode-hook
+;;               'python-mode-hook
+;;               'ruby-mode-hook
+;;               'java-mode-hook
+;;               'sh-mode-hook
+;;               'php-mode-hook
+;;               'c-mode-common-hook
+;;               'c-mode-hook
+;;               'csharp-mode-hook
+;;               'c++-mode-hook
+;;               'haskell-mode-hook
+;;               ))
+;;  (add-hook hook '(lambda () (company-lsp))))
+
+;;(add-hook 'rust-mode-hook 'commpany-lsp)
+;;(add-hook 'js-mode-hook 'commpany-lsp)
+
+
+
+
+
+
 ;; ==================== out of Mepla
 
 (add-to-list 'load-path "e:\\spacemacs\\emacs26-3\\.emacs.d\\site-lisp\\")
 (add-to-list 'load-path "e:\\spacemacs\\emacs26-3\\.emacs.d\\site-lisp\\js-doc")
+(add-to-list 'load-path "e:\\spacemacs\\emacs26-3\\.emacs.d\\site-lisp\\org-bullets")
 ;;(add-to-list 'load-path "e:\\spacemacs\\emacs26-3\\.emacs.d\\site-lisp\\snails")
 
+(add-to-list 'load-path "e:\\spacemacs\\emacs26-3\\.emacs.d\\site-lisp\\nox")
+(add-to-list 'load-path "e:\\spacemacs\\emacs26-3\\.emacs.d\\site-lisp\\LilyPond")
+(add-to-list 'load-path "e:\\spacemacs\\emacs26-3\\.emacs.d\\site-lisp\\lyqi")
+(add-to-list 'load-path "e:\\spacemacs\\emacs26-3\\.emacs.d\\site-lisp\\awesome-tray")
 (add-to-list 'load-path "e:\\spacemacs\\emacs26-3\\.emacs.d\\WingDust\\init-lisp\\")
+
+
+;; [[https://zhangda.wordpress.com/2016/02/15/configurations-for-beautifying-emacs-org-mode/][Da's recipes on Emacs, IT, and more]]
+(require 'org-bullets)
+;;“☰” “☱” “☲” “☳” “☴” “☵” “☶” “☷”
+(setq org-bullets-bullet-list '("☰" "☷" "☯" "☷"))
+(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 
 
 ;; js-doc
@@ -89,14 +133,49 @@
 
 ;;(require 'snails)
 
+;;
+(require 'awesome-tray)
+(awesome-tray-mode 1)
+
+;;(require 'nox)
+;;(dolist (hook (list
+;;               'js-mode-hook
+;;               'rust-mode-hook
+;;               'python-mode-hook
+;;               'ruby-mode-hook
+;;               'java-mode-hook
+;;               'sh-mode-hook
+;;               'php-mode-hook
+;;               'c-mode-common-hook
+;;               'c-mode-hook
+;;               'csharp-mode-hook
+;;               'c++-mode-hook
+;;               'haskell-mode-hook
+;;               ))
+;;  (add-hook hook '(lambda () (nox-ensure))))
+
+(if (display-graphic-p)
+    (setq-default mode-line-format '(" "))
+  (setq-default mode-line-format nil))
+
+
+(require 'lilypond-mode)
+(autoload 'LilyPond-mode "lilypond-mode")
+(setq auto-mode-alist
+			(cons '("\\.ly$" . LilyPond-mode) auto-mode-alist)
+      )
+(add-hook 'LilyPond-mode-hook (lambda () (turn-on-font-lock)))
+(eval-after-load "LilyPond-mode" (load-library "ac-lilypond"))
+
+;; ./emacs 不需要 require
+(require 'lyqi)
+(add-to-list 'auto-mode-alist '("\\.ly$" . lyqi-mode))
+(add-to-list 'auto-mode-alist '("\\.ily$" . lyqi-mode))
+
 (require 'auto-save)
 (auto-save-enable)
 ;;(setq auto-save-slient t)       ;; 自动保存的时候静悄悄的， 不要打扰我
 
-(setq org-agenda-files (list
-                        "h:/工作/framework/1.org"
-                        "h:/工作/framework/Daily.org"
-                        ))
 
 
 (require 'init-org)

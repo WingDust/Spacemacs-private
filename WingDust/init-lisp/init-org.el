@@ -59,7 +59,6 @@
 ;;(setq org-startup-indented t)
 
 ;; 设置 bullet list [[https://www.lijigang.com/blog/2018/08/08/%E7%A5%9E%E5%99%A8-org-mode/][美化: Headline]]
-(setq org-bullets-bullet-list '("☰" "☷" "☯" "☭"))
 
 ;; 快速选择TODO状态
 (setq org-use-fast-todo-selection t)
@@ -93,7 +92,8 @@
 (setq org-priority-faces
       '(
         (?A . org-warning)
-        (?B . (:background "DodgerBlue" :foreground "black"))
+        ;;(?B . (:background "DodgerBlue" :foreground "black"))
+        (?B . (:foreground "black" :weight bold))
         (?C . (:foreground "SkyBlue" :weight bold))
         (?D . (:foreground "DodgerBlue" :weight bold))
         )
@@ -126,17 +126,74 @@
 ;; why/how 	? (delete/archive/schedule)
 (setq org-tag-alist '(
                       (:startup . nil)
-                      ("home" . ?r) ("office" . ?o) ("way" . ?w)
+                      ("" . ?r) ("office" . ?o) ("way" . ?w)
                       (:endgroup . nil)
-                      ("职业" . ?c)
-                      ("生活" . ?l)
-                      ("学习" . ?s)
+                      ("基础" . ?c)
+                      ("长期" . ?l)
+                      ("可能性" . ?s)
+                      ("思维点")
                       ))
+
+(setq org-agenda-files (list
+                        ;;"h:/工作/framework/1.org"
+                        "h:/工作/framework/Daily.org"
+                        "h:/工作/framework/GTD/_NeedReview/Thought.org"
+                        ))
+
+
+;;(setq org-agenda-custom-commands
+;;      '(("cx" "TODOs sorted by state, priority, effort"
+;;         todo "*"
+;;         ((org-agenda-overriding-header "\nTODOs sorted by state, priority, effort")
+;;          (org-agenda-sorting-strategy '(todo-state-down priority-down effort-up))))))
+(let ((org-super-agenda-groups
+       '(;; Each group has an implicit boolean OR operator between its selectors.
+         (:name "Today"  ; Optionally specify section name
+                :time-grid t  ; Items that appear on the time grid
+                :todo "TODAY")  ; Items that have this TODO keyword
+         (:name "Important"
+                ;; Single arguments given alone
+                :tag "bills"
+                :priority "A")
+         ;; Set order of multiple groups at once
+         (:order-multi (2 (:name "Shopping in town"
+                                 ;; Boolean AND group matches items that match all subgroups
+                                 :and (:tag "shopping" :tag "@town"))
+                          (:name "Food-related"
+                                 ;; Multiple args given in list with implicit OR
+                                 :tag ("food" "dinner"))
+                          (:name "Personal"
+                                 :habit t
+                                 :tag "personal")
+                          (:name "Space-related (non-moon-or-planet-related)"
+                                 ;; Regexps match case-insensitively on the entire entry
+                                 :and (:regexp ("space" "NASA")
+                                               ;; Boolean NOT also has implicit OR between selectors
+                                               :not (:regexp "moon" :tag "planet")))))
+         ;; Groups supply their own section names when none are given
+         (:todo "WAITING" :order 8)  ; Set order of this section
+         (:todo ("SOMEDAY" "TO-READ" "CHECK" "TO-WATCH" "WATCHING")
+                ;; Show this group at the end of the agenda (since it has the
+                ;; highest number). If you specified this group last, items
+                ;; with these todo keywords that e.g. have priority A would be
+                ;; displayed in that group instead, because items are grouped
+                ;; out in the order the groups are listed.
+                :order 9)
+         (:priority<= "B"
+                      ;; Show this section after "Today" and "Important", because
+                      ;; their order is unspecified, defaulting to 0. Sections
+                      ;; are displayed lowest-number-first.
+                      :order 1)
+         ;; After the last group, the agenda will display items that didn't
+         ;; match any of these groups, with the default order position of 99
+         )))
+  (org-agenda nil "a"))
 
 
 (setq org-archive-location "h:/工作/framework/GTD/_archive/Things.org::")
 
 
+(setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
 
 
 
