@@ -106,6 +106,7 @@
 (add-to-list 'load-path "e:\\spacemacs\\emacs26-3\\.emacs.d\\site-lisp\\org-bullets")
 ;;(add-to-list 'load-path "e:\\spacemacs\\emacs26-3\\.emacs.d\\site-lisp\\snails")
 
+(add-to-list 'load-path "e:\\spacemacs\\emacs26-3\\.emacs.d\\site-lisp\\kana")
 (add-to-list 'load-path "e:\\spacemacs\\emacs26-3\\.emacs.d\\site-lisp\\nox")
 (add-to-list 'load-path "e:\\spacemacs\\emacs26-3\\.emacs.d\\site-lisp\\LilyPond")
 (add-to-list 'load-path "e:\\spacemacs\\emacs26-3\\.emacs.d\\site-lisp\\lyqi")
@@ -177,5 +178,8 @@
 ;;(setq auto-save-slient t)       ;; 自动保存的时候静悄悄的， 不要打扰我
 
 
+(require 'kana)
+
+(require 'w32-browser)
 
 (require 'init-org)

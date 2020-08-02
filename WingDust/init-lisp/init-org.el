@@ -126,7 +126,7 @@
 ;; why/how 	? (delete/archive/schedule)
 (setq org-tag-alist '(
                       (:startup . nil)
-                      ("" . ?r) ("office" . ?o) ("way" . ?w)
+                      ("文章" . ?r) ("office" . ?o) ("way" . ?w)
                       (:endgroup . nil)
                       ("基础" . ?c)
                       ("长期" . ?l)
