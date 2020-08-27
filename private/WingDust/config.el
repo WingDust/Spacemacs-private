@@ -96,6 +96,42 @@
 
 
 
+;; 打开 buffer 下的资源管理器 无视操作系统
+(defun browse-file-directory ()
+  "Open the current file's directory however the OS would."
+  (interactive)
+  (if default-directory
+      (browse-url-of-file (expand-file-name default-directory))
+    (error "No `default-directory' to open")))
+
+
+
+
+(define-key global-map (kbd "M-'") 'my-toggle-selective-display)
+
+(defun my-toggle-selective-display()
+  "set-selective-display to current column or toggle
+selective-display --lgfang"
+  (interactive)
+  (let ((arg (progn (back-to-indentation) (current-column))))
+    (set-selective-display (if (eq arg selective-display) nil arg))))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -106,6 +142,13 @@
 (add-to-list 'load-path "e:\\spacemacs\\emacs26-3\\.emacs.d\\site-lisp\\org-bullets")
 ;;(add-to-list 'load-path "e:\\spacemacs\\emacs26-3\\.emacs.d\\site-lisp\\snails")
 
+(add-to-list 'load-path "e:\\spacemacs\\emacs26-3\\.emacs.d\\site-lisp\\vimish-fold")
+
+(add-to-list 'load-path "e:\\spacemacs\\emacs26-3\\.emacs.d\\site-lisp\\gnugo")
+
+(add-to-list 'load-path "e:\\spacemacs\\emacs26-3\\.emacs.d\\site-lisp\\yafolding")
+
+(add-to-list 'load-path "e:\\spacemacs\\emacs26-3\\.emacs.d\\site-lisp\\valign")
 (add-to-list 'load-path "e:\\spacemacs\\emacs26-3\\.emacs.d\\site-lisp\\kana")
 (add-to-list 'load-path "e:\\spacemacs\\emacs26-3\\.emacs.d\\site-lisp\\nox")
 (add-to-list 'load-path "e:\\spacemacs\\emacs26-3\\.emacs.d\\site-lisp\\LilyPond")
@@ -182,4 +225,20 @@
 
 (require 'w32-browser)
 
+(require 'valign)
+(add-hook 'org-mode-hook #'valign-mode)
+
+(require 'yafolding)
+;;(require 'vimish-fold)
+
 (require 'init-org)
+
+(require 'folding)
+
+(require 'gnugo)
+(require 'gnugo-xpms)
+(autoload 'gnugo "gnugo" "Play Go" t)
+(autoload 'gnugo-xpms "gnugo-xpms" "GNU Go" t)
+(defadvice gnugo-insertion-filter (before gnugo-coding-system-fix activate)
+  (setq string (replace-regexp-in-string "\r" "" string)))
+

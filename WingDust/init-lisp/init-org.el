@@ -141,6 +141,49 @@
                         ))
 
 
+
+
+
+
+
+;; From https://www.reddit.com/r/emacs/comments/erro41/weekly_tipstricketc_thread/
+(defun org-copy-entire-link-at-point ()
+  "Save the link at point in the kill ring."
+  (interactive)
+  (when (org-in-regexp org-link-bracket-re 1)
+    (kill-ring-save (match-beginning 0) (match-end 0))
+    (message "%s" (car kill-ring))))
+
+(defun org-with-link (fn)
+  "Call function FN with the target of the link at point to the kill ring."
+  (if-let* ((link (when (org-in-regexp org-bracket-link-regexp)
+                    (org-link-unescape (match-string-no-properties 1)))))
+      (funcall fn link)
+    (user-error "Not in a link.")))
+
+;; 将 point 中 link 放到 kill ring 中
+(defun org-copy-link-at-point ()
+  "Copy the target of the link at point to the kill ring."
+  (interactive)
+  (org-with-link (lambda (link)
+                   (kill-new link)
+                   (message "%s" link))))
+
+
+
+
+
+
+
+
+
+
+
+
+;; ===============================================================
+
+
+
 ;;(setq org-agenda-custom-commands
 ;;      '(("cx" "TODOs sorted by state, priority, effort"
 ;;         todo "*"
