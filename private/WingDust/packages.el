@@ -36,7 +36,10 @@
 
     ;;highlight-indent-guides
     youdao-dictionary
+    org-latex-impatient
+    cdlatex
     origami
+
     )
   "The list of Lisp packages required by the WingDust layer.
 Each entry is either:
@@ -77,6 +80,23 @@ Each entry is either:
 
 (defun WingDust/post-init-origami()
     (add-hook 'markdown-mode-hook 'origami-mode)
+  )
+
+(defun WingDust/init-org-latex-impatient()
+  (use-package org-latex-impatient
+    :commands org-latex-impatient-mode
+    :init
+    (spacemacs/set-leader-keys-for-major-mode 'org-mode
+      "To" 'org-latex-impatient-mode)
+    (setq org-latex-impatient-tex2svg-bin
+          "e:/nodist/v-x64/12.13.1/tex2svg.cmd")
+    (setq org-latex-impatient-posframe-position-handler
+          'posframe-poshandler-point-bottom-left-corner)
+    (setq org-latex-impatient-scale 2.5)
+    ))
+
+(defun WingDust/post-init-cdlatex()
+
   )
 
 ;; 吃cpu

@@ -1,5 +1,21 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Org-mode
 
+;; [[https://emacs-china.org/t/orgmode/8673][orgmode是否可以设置打开文件的时候默认折叠到哪一级标题?]]
+(add-hook (quote org-mode-hook)
+          (lambda ()
+            (org-shifttab 2)))
+
+(setq org-superstar-leading-bullet "  ")
+
+(add-hook (quote hack-local-variables-hook)
+          (lambda ()
+            (let ((symbol (quote goer-org-startup-folded)))
+              (when (and (eq major-mode (quote org-mode))
+                         (boundp symbol))
+                (let ((value (symbol-value symbol)))
+                  (when (and value (integerp value))
+                    (org-shifttab value)))))))
+
 
 ;; set status  for TODO
 (setq org-todo-keywords
@@ -103,7 +119,7 @@
 ;; =================== Setting for gtd Captures
 
 ;; Directory for capture files
-(setq org-directory "h:/工作/framework/GTD/")
+(setq org-directory "h:/Work/framework/GTD/")
 
 ;; Default capture files
 (setq org-default-notes-file (concat org-directory "GTD/inbox.org"))
@@ -136,8 +152,8 @@
 
 (setq org-agenda-files (list
                         ;;"h:/工作/framework/1.org"
-                        "h:/工作/framework/Daily.org"
-                        "h:/工作/framework/GTD/_NeedReview/Thought.org"
+                        "h:/Work/framework/NoteBook/Daily.org"
+                        "h:/Work/framework/GTD/_NeedReview/Thought.org"
                         ))
 
 
@@ -233,7 +249,7 @@
   (org-agenda nil "a"))
 
 
-(setq org-archive-location "h:/工作/framework/GTD/_archive/Things.org::")
+(setq org-archive-location "h:/Work/framework/GTD/_archive/Things.org::")
 
 
 (setq org-refile-targets '((org-agenda-files :maxlevel . 3)))

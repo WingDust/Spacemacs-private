@@ -14,6 +14,7 @@
 
 ;; Avoid garbage collection during startup.
 ;; see `SPC h . dotspacemacs-gc-cons' for more info
+(setq debug-on-error t)
 (defconst emacs-start-time (current-time))
 (setq gc-cons-threshold 402653184 gc-cons-percentage 0.6)
 (load (concat (file-name-directory load-file-name)

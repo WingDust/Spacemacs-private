@@ -24,4 +24,13 @@
 
 (global-set-key (kbd "<f9>") 'whitespace-mode)
 
+
+(global-set-key (kbd"C-c C-d")
+        (lambda () (interactive)
+          (setq debug-on-error (if debug-on-error nil t))
+          (message (format"debug-on-error : %s" debug-on-error))))
+
+
 (provide 'init-keybinding)
+
+

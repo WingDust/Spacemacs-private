@@ -17,6 +17,21 @@
 ;;  :mode occur-mode
 ;; )
 
+;; Latex config
+(setq-default TeX-master nil)
+;;(add-hook 'LaTeX-mode-hook 'turn-on-cdlatex)   ;; with AUCTeX LaTeX mode
+;;(add-hook 'latex-mode-hook 'turn-on-cdlatex)   ;; with Emacs latex mode
+(mapc (lambda (mode)
+        (add-hook 'laTeX-mode-hook))
+      (list ;;'cdlatex-mode
+      ;;(list 'turn-on-cdlatex
+            ;;'reftex-mode
+            ;;'outline-minor-mode
+            ;;'flyspell-mode
+            ;;'hide-body t
+            )
+      )
+
 ;;; Markdown-fold
 (add-hook 'markdown-mode-hook
           (lambda ()
@@ -28,6 +43,7 @@
               )
             )
           )
+
 
 ;; 设置单行高亮
 (global-hl-line-mode 1)
@@ -44,22 +60,6 @@
 ;;(add-hook 'js-mode-hook 'color-identifiers-mode)
 
 
-;;
-(defun setup-tide-mode()
-    "Setup funciton fot tide"
-  	(interactive)
-    (tide-setup)
-    (flycheck-mode +1)
-    (setq flycheck-check-syntax-automatically '(save mode-enabled))
-    (tide-hl-identifier-mode +1)
-    (company-mode +1)
-    )
-
-(add-hook 'js-mode-hook #'setup-tide-mode)
-(add-hook 'before-save-hook 'tide-format-before-save)
-;;(flycheck-add-next-checker 'javascript-eslint 'javascript-tide 'append)
-
-
 (setq inhibit-compacting-font-caches t)
 
 ;;(custom-theme-set-faces 'doom-nord
@@ -68,10 +68,6 @@
 
 
 
-;;(add-hook 'racer-mode-hook #'company-mode)
-;;(require 'rust-mode)
-;;(define-key rust-mode-map (kbd "TAB") #'company-indent-or-complete-common)
-;;(setq company-tooltip-align-annotations t)
 
 
 
@@ -90,9 +86,6 @@
 ;;               'haskell-mode-hook
 ;;               ))
 ;;  (add-hook hook '(lambda () (company-lsp))))
-
-;;(add-hook 'rust-mode-hook 'commpany-lsp)
-;;(add-hook 'js-mode-hook 'commpany-lsp)
 
 
 
@@ -119,6 +112,22 @@ selective-display --lgfang"
 
 
 
+;; (setq package-check-signature nil)
+
+;; LaTex config
+(add-hook 'LaTeX-mode-hook
+          (lambda ()
+            (setq lsp-latex-build-args '("-xelatex" "-outdir=lsp" "-interaction=nonstopmode" "-synctex=1" "%f"))
+            ;; SPC m c default use Tex, so we config tex engine to support Chinese
+            (setq TeX-engine 'xetex)
+            ))
+
+
+
+
+
+
+
 
 
 
@@ -138,13 +147,15 @@ selective-display --lgfang"
 ;; ==================== out of Mepla
 
 (add-to-list 'load-path "e:\\spacemacs\\emacs26-3\\.emacs.d\\site-lisp\\")
-(add-to-list 'load-path "e:\\spacemacs\\emacs26-3\\.emacs.d\\site-lisp\\js-doc")
 (add-to-list 'load-path "e:\\spacemacs\\emacs26-3\\.emacs.d\\site-lisp\\org-bullets")
 ;;(add-to-list 'load-path "e:\\spacemacs\\emacs26-3\\.emacs.d\\site-lisp\\snails")
 
 (add-to-list 'load-path "e:\\spacemacs\\emacs26-3\\.emacs.d\\site-lisp\\vimish-fold")
 
 (add-to-list 'load-path "e:\\spacemacs\\emacs26-3\\.emacs.d\\site-lisp\\gnugo")
+
+;;(add-to-list 'load-path "e:\\spacemacs\\emacs26-3\\.emacs.d\\site-lisp\\el-go")
+;;(add-to-list 'load-path "e:\\spacemacs\\emacs26-3\\.emacs.d\\site-lisp\\ag.el")
 
 (add-to-list 'load-path "e:\\spacemacs\\emacs26-3\\.emacs.d\\site-lisp\\yafolding")
 
@@ -156,6 +167,10 @@ selective-display --lgfang"
 (add-to-list 'load-path "e:\\spacemacs\\emacs26-3\\.emacs.d\\site-lisp\\awesome-tray")
 (add-to-list 'load-path "e:\\spacemacs\\emacs26-3\\.emacs.d\\WingDust\\init-lisp\\")
 
+(add-to-list 'load-path "e:\\spacemacs\\emacs26-3\\.emacs.d\\site-lisp\\s")
+(add-to-list 'load-path "e:\\spacemacs\\emacs26-3\\.emacs.d\\site-lisp\\ts") ;; 它依赖s.el
+;;(add-to-list 'load-path "e:\\spacemacs\\emacs26-3\\.emacs.d\\site-lisp\\cdlatex")
+(add-to-list 'load-path "e:\\spacemacs\\emacs26-3\\.emacs.d\\site-lisp\\elispfl") ;; 它依赖s.el
 
 ;; [[https://zhangda.wordpress.com/2016/02/15/configurations-for-beautifying-emacs-org-mode/][Da's recipes on Emacs, IT, and more]]
 (require 'org-bullets)
@@ -164,14 +179,6 @@ selective-display --lgfang"
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 
 
-;; js-doc
-(require 'js-doc)
-(add-hook 'js2-mode-hook
-          #'(lambda ()
-              (define-key js2-mode-map "\C-ci" 'js-doc-insert-function-doc)
-              (define-key js2-mode-map "@" 'js-doc-insert-tag)
-              )
-          )
 
 (require 'init-keybinding)
 
@@ -235,6 +242,9 @@ selective-display --lgfang"
 
 (require 'folding)
 
+(require 's)
+(require 'ts)
+
 (require 'gnugo)
 (require 'gnugo-xpms)
 (autoload 'gnugo "gnugo" "Play Go" t)
@@ -242,3 +252,17 @@ selective-display --lgfang"
 (defadvice gnugo-insertion-filter (before gnugo-coding-system-fix activate)
   (setq string (replace-regexp-in-string "\r" "" string)))
 
+(add-to-list 'auto-mode-alist '("\\.tex$" . latex-mode))
+(add-to-list 'auto-mode-alist '("\\.dot$" . company-mode))
+
+;;(require 'cdlatex)
+;;(add-hook 'LaTeX-mode-hook 'turn-on-cdlatex)   ;; with AUCTeX LaTeX mode
+;;(add-hook 'latex-mode-hook 'turn-on-cdlatex)   ;; with Emacs latex mode
+
+
+(require 'elispfl)
+(with-eval-after-load 'elisp-mode
+  (require 'elispfl)
+  (elispfl-mode))
+
+;;(require 'rsz-mini)
