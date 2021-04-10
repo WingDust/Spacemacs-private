@@ -17,20 +17,6 @@
 ;;  :mode occur-mode
 ;; )
 
-;; Latex config
-(setq-default TeX-master nil)
-;;(add-hook 'LaTeX-mode-hook 'turn-on-cdlatex)   ;; with AUCTeX LaTeX mode
-;;(add-hook 'latex-mode-hook 'turn-on-cdlatex)   ;; with Emacs latex mode
-(mapc (lambda (mode)
-        (add-hook 'laTeX-mode-hook))
-      (list ;;'cdlatex-mode
-      ;;(list 'turn-on-cdlatex
-            ;;'reftex-mode
-            ;;'outline-minor-mode
-            ;;'flyspell-mode
-            ;;'hide-body t
-            )
-      )
 
 ;;; Markdown-fold
 (add-hook 'markdown-mode-hook
@@ -122,6 +108,27 @@ selective-display --lgfang"
             (setq TeX-engine 'xetex)
             ))
 
+;; (setq TeX-source-correlate-mode t)
+(setq TeX-tree-roots "c:/Users/Administrator/scoop/apps/tinytex/current/texmf-dist")
+(setq Tex-view-program-list
+      '(("Sumatra PDF" ("c:/Users/Administrator/scoop/shims/sumatrapdf.exe -reuse-instance" (mode-io-correlate " -forward-search %b %n ") " %o")))
+      )
+(setq TeX-view-program-selection
+      '(((output-dvi style-pstricks)
+         "dvips and start"
+         )
+        (output-dvi "Yap")
+        (output-pdf "Sumatra PDF")
+        (output-html "start")
+        )
+      )
+
+(add-hook 'LaTeX-mode-hook
+          (lambda ()
+            (assq-delete-all 'output-pdf TeX-view-program-selection)
+            (add-to-list 'TeX-view-program-selection '(output-pdf "Sumatra PDF"))
+            )
+          )
 
 
 
@@ -159,7 +166,6 @@ selective-display --lgfang"
 
 (add-to-list 'load-path "e:\\spacemacs\\emacs26-3\\.emacs.d\\site-lisp\\yafolding")
 
-(add-to-list 'load-path "e:\\spacemacs\\emacs26-3\\.emacs.d\\site-lisp\\valign")
 (add-to-list 'load-path "e:\\spacemacs\\emacs26-3\\.emacs.d\\site-lisp\\kana")
 (add-to-list 'load-path "e:\\spacemacs\\emacs26-3\\.emacs.d\\site-lisp\\nox")
 (add-to-list 'load-path "e:\\spacemacs\\emacs26-3\\.emacs.d\\site-lisp\\LilyPond")
@@ -169,7 +175,6 @@ selective-display --lgfang"
 
 (add-to-list 'load-path "e:\\spacemacs\\emacs26-3\\.emacs.d\\site-lisp\\s")
 (add-to-list 'load-path "e:\\spacemacs\\emacs26-3\\.emacs.d\\site-lisp\\ts") ;; 它依赖s.el
-;;(add-to-list 'load-path "e:\\spacemacs\\emacs26-3\\.emacs.d\\site-lisp\\cdlatex")
 (add-to-list 'load-path "e:\\spacemacs\\emacs26-3\\.emacs.d\\site-lisp\\elispfl") ;; 它依赖s.el
 
 ;; [[https://zhangda.wordpress.com/2016/02/15/configurations-for-beautifying-emacs-org-mode/][Da's recipes on Emacs, IT, and more]]
@@ -232,8 +237,6 @@ selective-display --lgfang"
 
 (require 'w32-browser)
 
-(require 'valign)
-(add-hook 'org-mode-hook #'valign-mode)
 
 (require 'yafolding)
 ;;(require 'vimish-fold)
@@ -254,10 +257,6 @@ selective-display --lgfang"
 
 (add-to-list 'auto-mode-alist '("\\.tex$" . latex-mode))
 (add-to-list 'auto-mode-alist '("\\.dot$" . company-mode))
-
-;;(require 'cdlatex)
-;;(add-hook 'LaTeX-mode-hook 'turn-on-cdlatex)   ;; with AUCTeX LaTeX mode
-;;(add-hook 'latex-mode-hook 'turn-on-cdlatex)   ;; with Emacs latex mode
 
 
 (require 'elispfl)

@@ -37,10 +37,11 @@
     ;;highlight-indent-guides
     youdao-dictionary
     org-latex-impatient
-    cdlatex
     origami
-
+    cdlatex
+    valign
     )
+
   "The list of Lisp packages required by the WingDust layer.
 Each entry is either:
 
@@ -95,10 +96,35 @@ Each entry is either:
     (setq org-latex-impatient-scale 2.5)
     ))
 
-(defun WingDust/post-init-cdlatex()
+(defun WingDust/init-cdlatex()
+  (use-package cdlatex
+    					 :defer t
+               :hook ((LaTeX-mode latex-mode) . turn-on-cdlatex)
+               ;;[[https://github.com/tshu-w/spacemacs-configuration/blob/6811f2cc227f2659c6a61f9ecb828f82f9d57160/layers/lang/packages.el][spacemacs-configuration]]
+               ;; :commands turn-on-cdlatex
+               :init
+               (add-hook 'latex-mode-hook (global-unset-key (kbd "<tab>")))
+               ;;(add-hook 'laTeX-mode-hook 'cdlatex-mode)
+;;               (mapc (lambda (mode)
+;;                      (add-hook 'laTeX-mode-hook))
+;;                    (list ;;'cdlatex-mode
+;;               (list 'turn-on-cdlatex
+;;               'outline-minor-mode
+;;               'flyspell-mode
+;;               'hide-body t
+;;               )
+;;               )
+;;
+               )
 
   )
 
+(defun WingDust/init-valign()
+  (use-package valign
+    :init
+    (add-hook 'org-mode-hook #'valign-mode)
+    )
+  )
 ;; 吃cpu
 ;;(defun WingDust/init-highlight-indent-guides()
 ;;  ;; highlight-indent

@@ -1,5 +1,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Org-mode
 
+;;(add-hook 'org-mode-hook 'turn-on-org-cdlatex)
+
 ;; [[https://emacs-china.org/t/orgmode/8673][orgmode是否可以设置打开文件的时候默认折叠到哪一级标题?]]
 (add-hook (quote org-mode-hook)
           (lambda ()
