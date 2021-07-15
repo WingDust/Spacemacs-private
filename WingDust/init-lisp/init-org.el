@@ -2,12 +2,7 @@
 
 ;;(add-hook 'org-mode-hook 'turn-on-org-cdlatex)
 
-;; [[https://emacs-china.org/t/orgmode/8673][orgmode是否可以设置打开文件的时候默认折叠到哪一级标题?]]
-(add-hook (quote org-mode-hook)
-          (lambda ()
-            (org-shifttab 2)))
 
-(setq org-superstar-leading-bullet "  ")
 
 (add-hook (quote hack-local-variables-hook)
           (lambda ()
@@ -61,15 +56,6 @@
 ;;                         ))
 
 
-
-;; 当转成 Done 时添加时间戳 转变为非 Done 移除
-(setq org-log-done 'time)
-
-;;在Org-mode 下中的代码块能有语法高亮
-(require 'org)
-(setq org-src-fontify-natively t)
-
-;;
 ;;(setq org-agenda-files '("g:\\工作\\framework"))
 (global-set-key (kbd "C-c a") 'org-agenda)
 
@@ -81,20 +67,6 @@
 ;; 快速选择TODO状态
 (setq org-use-fast-todo-selection t)
 
-
-(setq python-shell-interpreter "e:\\python\\python3.8.1\\python.exe"
-      org-babel-python-command "e:\\python\\python3.8.1\\python.exe"
-      )
-
-;; 'org-babel-execute:python
-(with-eval-after-load 'org
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((emacs-lisp . t)
-     (python . t)
-     ;;(sh . t)
-     ))
-  )
 
 
 
@@ -153,9 +125,7 @@
                       ))
 
 (setq org-agenda-files (list
-                        ;;"h:/工作/framework/1.org"
-                        "h:/Work/framework/NoteBook/Daily.org"
-                        "h:/Work/framework/GTD/_NeedReview/Thought.org"
+                        "h:/Work/framework/Site/org/Trivia.org"
                         ))
 
 

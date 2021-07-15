@@ -20,7 +20,8 @@
 
 (define-key isearch-mode-map (kbd "C-h") 'isearch-delete-char)
 
-(global-set-key (kbd "<tab>") '(lambda () (interactive) (insert-char 9 1)))
+;; (global-set-key (kbd "<tab>") '(lambda () (interactive) (insert-char 9 1)))
+
 
 (global-set-key (kbd "<f9>") 'whitespace-mode)
 

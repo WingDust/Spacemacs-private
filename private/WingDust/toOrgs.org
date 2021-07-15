@@ -1,0 +1,72 @@
+
+* Org Mode config Emacs
+  
+** Org mode literate Programming
+*** python
+    
+   #+begin_src emacs-lisp
+   ;;;'org-babel-execute:python
+   (setq python-shell-interpreter "e:\\python\\python3.8.1\\python.exe"
+         org-babel-python-command "e:\\python\\python3.8.1\\python.exe"
+         )
+   #+end_src
+   
+*** js
+    
+    #+begin_src emacs-lisp
+   (require 'ob-js)
+    #+end_src
+    
+*** load
+    
+    #+begin_src emacs-lisp
+   (with-eval-after-load 'org
+     (org-babel-do-load-languages
+     'org-babel-load-languages
+     '((emacs-lisp . t)
+       (python . t)
+       (js . t)
+       ))
+     )
+    #+end_src
+    
+** 去掉标题的小白点
+   
+    #+begin_src emacs-lisp
+    (setq org-superstar-leading-bullet "  ")
+    #+end_src
+    
+** 打开默认折叠某级标题
+    #+begin_src emacs-lisp
+   (add-hook (quote org-mode-hook)
+             (lambda ()
+               (org-shifttab 2)))
+    #+end_src
+    - [[https://emacs-china.org/t/orgmode/8673][orgmode是否可以设置打开文件的时候默认折叠到哪一级标题?]]
+** 将空行作为 Org Mode 内容一部分，以解决展开标题不会展开空行
+    #+begin_src emacs-lisp
+    (setq org-cycle-separator-lines -1)
+    #+end_src
+    - [[https://stackoverflow.com/questions/40332479/org-mode-folding-considers-whitespace-as-content][org-mode folding considers whitespace as content]]
+    - [[https://emacs.stackexchange.com/questions/21789/org-mode-blank-line-at-the-end-of-tree][Org-mode blank line at the end of tree]]
+    - [[https://www.reddit.com/r/emacs/comments/749t8a/keep_a_blank_line_after_a_code_block_in_orgmode/][Keep a blank line after a code block in org-mode]]
+** 修改 Org Mode 折叠符号
+   
+    #+begin_src emacs-lisp
+      ;; (use-package org
+            ;; :config
+              (setq org-ellipsis " ▾")
+            ;; )
+    #+end_src
+    
+** Org-mode 的代码块能有语法高亮
+   
+    #+begin_src emacs-lisp
+    (setq org-src-fontify-natively t)
+    #+end_src
+    
+** 当转成 Done 时添加时间戳 转变为非 Done 移除
+    #+begin_src emacs-lisp
+    (setq org-log-done 'time)
+    #+end_src
+

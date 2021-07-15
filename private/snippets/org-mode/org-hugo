@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: org-hugo
+# key: pr
+# --
+#+hugo_base_dir: ../
+#+title: 
+#+data: 
+#+hugo_tags: 
+#+toc:
+#+hugo_images: 

@@ -33,7 +33,7 @@
 
 ;; 设置单行高亮
 (global-hl-line-mode 1)
-(set-face-background 'hl-line "#3B4252")
+;; (set-face-background 'hl-line "#3B4252")
 
 ;;(set-background-color "#E5E9F0")
 
@@ -154,7 +154,6 @@ selective-display --lgfang"
 ;; ==================== out of Mepla
 
 (add-to-list 'load-path "e:\\spacemacs\\emacs26-3\\.emacs.d\\site-lisp\\")
-(add-to-list 'load-path "e:\\spacemacs\\emacs26-3\\.emacs.d\\site-lisp\\org-bullets")
 ;;(add-to-list 'load-path "e:\\spacemacs\\emacs26-3\\.emacs.d\\site-lisp\\snails")
 
 (add-to-list 'load-path "e:\\spacemacs\\emacs26-3\\.emacs.d\\site-lisp\\vimish-fold")
@@ -177,11 +176,8 @@ selective-display --lgfang"
 (add-to-list 'load-path "e:\\spacemacs\\emacs26-3\\.emacs.d\\site-lisp\\ts") ;; 它依赖s.el
 (add-to-list 'load-path "e:\\spacemacs\\emacs26-3\\.emacs.d\\site-lisp\\elispfl") ;; 它依赖s.el
 
-;; [[https://zhangda.wordpress.com/2016/02/15/configurations-for-beautifying-emacs-org-mode/][Da's recipes on Emacs, IT, and more]]
-(require 'org-bullets)
-;;“☰” “☱” “☲” “☳” “☴” “☵” “☶” “☷”
-(setq org-bullets-bullet-list '("☰" "☷" "☯" "☷"))
-(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+(add-to-list 'load-path "e:\\spacemacs\\emacs26-3\\.emacs.d\\private\\WingDust")
+(require 'toOrg)
 
 
 

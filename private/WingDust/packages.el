@@ -31,15 +31,25 @@
 
 (defconst WingDust-packages
   '(company
+    ;; evil
+    evil-matchit
+    ;; Literate Programming
     ;; === auto-save ===
-    ;;super-save
 
+
+    ;; === Literate Programming ===
+    ob-deno
+    ob-rust
+    ;;rustic
     ;;highlight-indent-guides
     youdao-dictionary
     org-latex-impatient
     origami
     cdlatex
     valign
+    lpy
+    ;; === Org mode === 
+    org-bullets
     )
 
   "The list of Lisp packages required by the WingDust layer.
@@ -74,14 +84,31 @@ Each entry is either:
   (setq company-minimum-prefix-length 1)
   )
 
-;;(defun WingDust/init-super-save()
-;;  (super-save-mode +1)
-;;  (setq super-save-auto-save-when-idle t)
-;;  )
-
 (defun WingDust/post-init-origami()
     (add-hook 'markdown-mode-hook 'origami-mode)
   )
+
+(defun WingDust/init-ob-deno()
+  (add-to-list 'org-src-lang-modes '("deno" . typescript))
+  (with-eval-after-load 'org
+    (org-babel-do-load-languages
+     'org-babel-load-languages
+     '(
+       (deno . t)
+       ))
+    )
+  )
+
+(defun WingDust/init-ob-rust()
+  (with-eval-after-load 'org
+    (org-babel-do-load-languages
+     'org-babel-load-languages
+     '(
+       (rust . t)
+       ))
+    )
+  )
+
 
 (defun WingDust/init-org-latex-impatient()
   (use-package org-latex-impatient
@@ -119,6 +146,14 @@ Each entry is either:
 
   )
 
+(defun WingDust/init-org-bullets()
+  ;; 设置标题的字符图案
+  ;; [[https://zhangda.wordpress.com/2016/02/15/configurations-for-beautifying-emacs-org-mode/][Da's recipes on Emacs, IT, and more]]
+  (setq org-bullets-bullet-list '("☰" "☷" "☯" "☷"))
+  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+  )
+
+
 (defun WingDust/init-valign()
   (use-package valign
     :init
@@ -141,9 +176,12 @@ Each entry is either:
 ;;  (add-hook 'lisp-mode-hook 'highlight-indent-guides-mode)
 ;;  (add-hook 'lisp-interaction-mode-hook 'highlight-indent-guides-mode)
 ;;  )
-
+(defun WingDust/post-init-evil-matchit ()
+    (global-evil-matchit-mode 1)
+  )
 (defun WingDust/post-init-youdao-dictionary()
   (spacemacs/set-leader-keys "oy" 'youdao-dictionary-search-at-point+)
   )
+(defun WingDust/init-lpy ())
 
-;;; packages.el ends here
+
