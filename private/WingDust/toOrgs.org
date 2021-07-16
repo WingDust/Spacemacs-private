@@ -1,5 +1,7 @@
 
-* Org Mode config Emacs
+* Org Mode Config Emacs
+  - [[https://emacs-china.org/t/topic/2328][org-dotemacs: 用 org-mode 来维护个人 Emacs 配置]]
+  - [[https://qastack.cn/emacs/3143/can-i-use-org-mode-to-structure-my-emacs-or-other-el-configuration-file][我可以使用org-mode来构造我的.emacs或其他.el配置文件吗]]
   
 ** Org mode literate Programming
 *** python
